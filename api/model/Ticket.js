@@ -23,4 +23,4 @@ const ticketSchema=new Schema({
 },{timestamps: true})
 
 
-model.exports=model("Ticket",ticketSchema);
+module.exports=model("Ticket",ticketSchema);
