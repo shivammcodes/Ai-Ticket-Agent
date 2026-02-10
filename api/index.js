@@ -13,12 +13,13 @@ const {auth}=authentication;
 
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin: "http://localhost:5173", credentials:true}));
 app.use(cookieParser());
 
 app.post('/signup',controller.userSignup);
 app.post('/login',controller.userLogin);
 app.post('/logout',auth,controller.userLogout);
+app.post('/updateUser',auth,controller.updateUser);
 
 
 mongoose.connect(process.env.MONGODB_URI)

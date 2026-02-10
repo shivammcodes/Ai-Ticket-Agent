@@ -62,7 +62,7 @@ exports.userLogin=async(req,res)=>{
     if(!isUser){
       return res.status(400).json({error:["Invalid credentials entered"]});
     }
-    jwt.sign({email,_id:user._id},process.env.JWT_SECRET,{},(err,token)=>{
+    jwt.sign({email,_id:user._id,role:user.role},process.env.JWT_SECRET,{},(err,token)=>{
         if(err){
             return res.status(400).json({error:["Cant create a token for user"]});
         }
@@ -76,5 +76,30 @@ exports.userLogin=async(req,res)=>{
 
 
 exports.userLogout=async(req,res)=>{
-    res.clearCookie("token").json({msg:["User successfully logges out"]});
+    res.clearCookie("token").json({msg:["User successfully logged out"]});
+}
+
+
+exports.updateUser=async(req,res)=>{
+    try{
+        const {role}= req.user;
+        const {skills}=req.body;
+    if(role!=='admin'){
+        return res.status(403).json({error:["only admin has the access"]});
+    }
+    const user= await User.findOne({
+        email:req.body.email
+    })
+    if(!user){
+        return res.status(404).json({error:["User not found"]});
+    }
+    const updatedUser=await User.updateOne({email:user.email},{
+        role: req.body.role,
+        skills: skills && skills.length>0 ? skills : user.skills 
+    })
+    res.json({msg:["User Successfully updated"]});
+    }
+    catch(error){
+        res.status(500).json({error: ["User update failed"]});
+    }
 }
