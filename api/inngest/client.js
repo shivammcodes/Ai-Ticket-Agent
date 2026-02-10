@@ -1,5 +1,6 @@
-import { Inngest } from "inngest";
+const Inn =require('inngest');
+const {Inngest}=Inn;
 
-export const inngest=new Inngest({
+exports.inngest=new Inngest({
     id: "Ticketing-System"
 });

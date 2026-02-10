@@ -1,6 +1,9 @@
 const bcrypt=require('bcrypt');
 const User=require('../model/User.js');
 const jwt=require('jsonwebtoken');
+const Inngest=require("../inngest/client.js");
+const {inngest}=Inngest;
+
 
 exports.userSignup=async(req,res)=>{
     try{
@@ -13,6 +16,12 @@ exports.userSignup=async(req,res)=>{
      const userDoc=await User.create({
         email,
         password:hashedPassword
+     })
+     inngest.send({
+        name: "user/signup",
+        data: {
+            email
+        }
      })
      res.status(201).json({data:userDoc});
     }
@@ -63,4 +72,9 @@ exports.userLogin=async(req,res)=>{
     catch(error){
          res.status(500).json({ error: ["Something went wrong"] });
     }
+}
+
+
+exports.userLogout=async(req,res)=>{
+    res.clearCookie("token").json({msg:["User successfully logges out"]});
 }
