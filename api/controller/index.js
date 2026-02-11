@@ -103,3 +103,18 @@ exports.updateUser=async(req,res)=>{
         res.status(500).json({error: ["User update failed"]});
     }
 }
+
+
+exports.getUsers=async(req,res)=>{
+    try{
+        const{role}=req.user;
+        if(role!=='admin'){
+            return res.status(403).json({error:["Only admins is alowed"]});
+        }
+        const users=await User.find().select("-password");
+        res.json({users});
+    }
+    catch(error){
+        res.status(500).json({error:["Failed to fetch users"]});
+    }
+}
