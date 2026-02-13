@@ -1,7 +1,7 @@
 require("dotenv").config();
 const {createAgent,gemini} =require("@inngest/agent-kit");
 const{ValidateRepsonse}= require('./validation');
-const analyzeTickets= async(ticket)=>{
+exports.analyzeTicket= async(ticket)=>{
     const ticketAgent=createAgent({
         name: "Ai-Ticketing triage system",
         model: gemini({
@@ -64,17 +64,3 @@ const analyzeTickets= async(ticket)=>{
     const aiResponse=ValidateRepsonse(raw);
     return aiResponse;
 }
-
-
-const ticket={
-    title: "need help with java",
-    description: "want help with the databse connection"
-}
-
-
-
-async function call(){
-    await analyzeTickets(ticket);
-}
-
-call();

@@ -17,7 +17,7 @@ const validate=ajv.compile(schema);
 exports.ValidateRepsonse =(data)=>{
 const isValid=validate(data);
 if(!isValid){
-    throw new Error(JSON.stringify(validate.errors));
+    return null;
 }
  return data
 }

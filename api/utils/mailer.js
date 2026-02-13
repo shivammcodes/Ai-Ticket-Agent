@@ -1,6 +1,6 @@
 require('dotenv').config()
 const nodemailer=require('nodemailer');
-export const sendMail=async (to,subject,text)=>{
+exports.sendMail=async (to,subject,text)=>{
   try{
     const transporter = nodemailer.createTransport({
   host: process.env.MAILTRAP_SMTP_HOST,
