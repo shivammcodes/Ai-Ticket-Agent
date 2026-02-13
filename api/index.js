@@ -1,4 +1,5 @@
 require('dotenv').config()
+require('./utils/ai.js')
 const mongoose=require('mongoose');
 const express=require('express');
 const app=express();
@@ -29,3 +30,4 @@ mongoose.connect(process.env.MONGODB_URI)
         app.listen(8080)
 })
 .catch((err)=>{console.log("Mongo Db error :",err)});
+
