@@ -168,3 +168,25 @@ exports.getTickets=async(req,res)=>{
         res.status(400).json({error:["Failed to load tickets"]});
     }
 }
+
+
+exports.getTicket=async(req,res)=>{
+    try{
+        const {id}=req.params;
+        const {role}=req.user;
+        let ticket;
+        if(role=='user'){
+            ticket = await Ticket.findOne({createdBy: req.user._id, _id: id}).select("title description status createdAt");
+        }
+        else{
+            ticket= await Ticket.findById(id).populate("assignedTo",["_id","email"]);
+        }
+        if (!ticket) {
+            return res.status(404).json({ error: ["Ticket not found"] });
+        }
+        res.json({data:ticket});
+    }
+    catch(error){
+        res.status(500).json({error:["Failed to fetch the ticket"]});
+    }
+}
