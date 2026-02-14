@@ -23,7 +23,7 @@ app.post('/logout',auth,controller.userLogout);
 app.post('/updateUser',auth,controller.updateUser);
 app.get('/getUsers',auth,controller.getUsers);
 app.post('/createTicket',auth,controller.createTicket);
-
+app.get('/getTickets',auth,controller.getTickets);
 mongoose.connect(process.env.MONGODB_URI)
 .then(()=>{
         console.log("MongoDb Connected");

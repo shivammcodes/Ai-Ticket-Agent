@@ -147,3 +147,24 @@ exports.createTicket=async(req,res)=>{
         res.status(500).json({error:["Ticket Creation falied"]});
     }
 }
+
+exports.getTickets=async(req,res)=>{
+    try{
+        const{role,_id}=req.user;
+        let tickets;
+        if(role=="user"){
+            tickets=await Ticket.find({createdBy:_id}).select("title description status createdAt").sort({createdAt: -1});
+        }
+        else{
+            tickets =await Ticket.find().populate("assignedTo",["_id","email"]).sort({createdAt:-1});
+        }
+        if(tickets.length==0){
+           return res.status(404).json({error:["No Tickets were found"]});
+        }
+        res.json({data: tickets});
+
+    }
+    catch(error){
+        res.status(400).json({error:["Failed to load tickets"]});
+    }
+}
