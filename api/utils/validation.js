@@ -19,5 +19,5 @@ const isValid=validate(data);
 if(!isValid){
     return null;
 }
- return data
+ return data;
 }

@@ -2,6 +2,7 @@ const bcrypt=require('bcrypt');
 const User=require('../model/User.js');
 const jwt=require('jsonwebtoken');
 const Inngest=require("../inngest/client.js");
+const Ticket = require('../model/Ticket.js');
 const {inngest}=Inngest;
 
 
@@ -17,7 +18,7 @@ exports.userSignup=async(req,res)=>{
         email,
         password:hashedPassword
      })
-     inngest.send({
+     await inngest.send({
         name: "user/signup",
         data: {
             email
@@ -120,3 +121,29 @@ exports.getUsers=async(req,res)=>{
 }
 
 
+
+
+exports.createTicket=async(req,res)=>{
+    try{
+        const{title,description}=req.body;
+        if(!title || !description){
+            return res.status(400).json({error:["Both the fields are required"]});
+        }
+        const ticketDoc=await Ticket.create({
+            title,
+            description,
+            createdBy: req.user._id
+        })
+        const{_id}=ticketDoc
+        await inngest.send({
+            name: "ticket/created",
+            data:{
+                _id
+            }
+        })
+        res.json({data:ticketDoc,msg:["Ticket successfully created"]});
+    }
+    catch(error){
+        res.status(500).json({error:["Ticket Creation falied"]});
+    }
+}
