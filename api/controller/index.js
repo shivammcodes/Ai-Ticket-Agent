@@ -29,6 +29,7 @@ exports.userSignup=async(req,res)=>{
 
 
     catch(error){
+        console.log(error);
         const err=[];
         if(error.name=="ValidationError"){
             for(let key in error.errors){
