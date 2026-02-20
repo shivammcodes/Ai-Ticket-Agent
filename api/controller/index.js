@@ -8,7 +8,7 @@ const {inngest}=Inngest;
 
 exports.userSignup=async(req,res)=>{
     try{
-     const {email,password}=req.body;
+     const{email,password}=req.body;
      if(!email || !password){
         return res.status(401).json({error:["Both the fields are required"]});
      }
@@ -24,7 +24,7 @@ exports.userSignup=async(req,res)=>{
             email
         }
      })
-     res.status(201).json({data:userDoc});
+     res.status(201).json({data:{_id:userDoc._id,emadil: userDoc.email}});
     }
 
 
@@ -52,7 +52,7 @@ exports.userSignup=async(req,res)=>{
 
 exports.userLogin=async(req,res)=>{
     try{
-        const {email,password}=req.body;
+    const {email,password}=req.body;
     if(!email || !password){
         return res.status(400).json({error:["Both the fields are required"]});
     }
