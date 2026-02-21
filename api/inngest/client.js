@@ -1,6 +1,5 @@
-const Inn =require('inngest');
-const {Inngest}=Inn;
+const { Inngest } = require("inngest");
 
-exports.inngest=new Inngest({
-    id: "Ticketing-System"
+exports.inngest = new Inngest({
+  id: "Ticketing-System",
 });

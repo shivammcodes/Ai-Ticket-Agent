@@ -62,5 +62,6 @@ exports.analyzeTicket= async(ticket)=>{
         throw new Error("Invalid Json Data from AI");
     }
     const aiResponse=ValidateRepsonse(raw);
+    console.log(aiResponse);
     return aiResponse;
 }

@@ -20,10 +20,7 @@ exports.onTicketCreated=inngest.createFunction(
             return ticketDoc;
         })
 
-        const aiResponse=await step.run("send-info-to-AI",async()=>{
-            const response=await analyzeTicket(ticket);
-            return response;
-        })
+        const aiResponse=await analyzeTicket(ticket);
         if(!aiResponse){
             throw new NonRetriableError("Ai response is in invalid format");
         }
