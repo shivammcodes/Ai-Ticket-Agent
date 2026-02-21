@@ -25,6 +25,7 @@ app.use('api/inngest',serve({
 
 app.post('/signup',controller.userSignup);
 app.post('/login',controller.userLogin);
+app.get('/checkUser',auth,controller.checkUser);
 app.post('/logout',auth,controller.userLogout);
 app.post('/updateUser',auth,controller.updateUser);
 app.get('/getUsers',auth,controller.getUsers);

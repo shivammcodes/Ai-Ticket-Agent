@@ -4,10 +4,11 @@ import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage"
 import SignUp from "./pages/SignUp"
 import { Toaster } from "react-hot-toast"
+import UserProvider from "./components/UserContext"
 
 const App = () => {
   return (
-    <>
+    <UserProvider>
     <Toaster></Toaster>
     <Routes>
       <Route path="/" element={<Layout></Layout>}>
@@ -16,7 +17,7 @@ const App = () => {
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
       </Route>
     </Routes>
-    </>
+    </UserProvider>
   )
 }
 

@@ -24,7 +24,7 @@ exports.userSignup=async(req,res)=>{
             email
         }
      })
-     res.status(201).json({data:{_id:userDoc._id,email: userDoc.email},msg:["User Created Successfully"]});
+     res.status(201).json({data:{_id:userDoc._id,email: userDoc.email},msg:["User Created Successfully"]}); 
     }
 
 
@@ -48,6 +48,7 @@ exports.userSignup=async(req,res)=>{
         }
     }
 }
+
 
 
 exports.userLogin=async(req,res)=>{
@@ -76,6 +77,16 @@ exports.userLogin=async(req,res)=>{
     }
 }
 
+exports.checkUser=async(req,res)=>{
+    try{
+        const{email}=req.user;
+        const user=await User.findOne({email});
+        res.json({email:user.email,_id:user._id});
+    }
+    catch(error){
+        res.status(400).json({error:["Something went wrong"]});
+    }
+}
 
 exports.userLogout=async(req,res)=>{
     res.clearCookie("token").json({msg:["User successfully logged out"]});
