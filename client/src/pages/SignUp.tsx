@@ -10,8 +10,41 @@ import {
 } from "@/components/ui/card"
 import { Input } from "../components/ui/input"
 import { Label } from "../components/ui/label";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const[email,setEmail]=useState('');
+  const[password,setPassword]=useState('');
+  const navigate=useNavigate();
+  const[loading,setLoading]=useState(false);
+  async function createUser(e : any){
+    e.preventDefault();
+    setLoading(true);
+    try{
+      const response=await fetch("http://localhost:8080/signup",{
+      method: "POST",
+      body: JSON.stringify({email,password}),
+      headers:{"Content-Type": "application/json"}
+    })
+    const data=await response.json();
+    if(!response.ok){
+      for(let err of data.error){
+        toast.error(err);
+        setLoading(false);
+      }
+    }
+    else{
+      setLoading(false);
+      toast.success(data.msg);
+      navigate('/login');
+    }
+    }
+    catch(error){
+      console.error("User Signup Failed");
+    }
+  }
   return (
     <div className="car flex h-screen w-full justify-center items-center">
         <Card className="w-full max-w-sm bg-[#171717]/80 border-border/40">
@@ -34,20 +67,24 @@ const SignUp = () => {
                 placeholder="m@example.com"
                 required
                 className="placeholder:text-[#949494] text-muted border-border/40"
+                onChange={(e)=>{setEmail(e.target.value)}}
+                value={email}
               />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password" className="text-muted">Password</Label>
               </div>
-              <Input id="password" type="password" required className="text-muted border-border/40 placeholder:text-[#949494]" placeholder="****" />
+              <Input id="password" type="password" required value={password} onChange={(e)=>{setPassword(e.target.value)}} className="text-muted border-border/40 placeholder:text-[#949494]" placeholder="****" />
             </div>
           </div>
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button type="submit" className="w-full bg-muted text-foreground hover:bg-[#949494]">
-          Sign Up
+        <Button type="submit" onClick={createUser} disabled={loading} className="w-full bg-muted text-foreground hover:bg-[#949494]">
+          {
+            loading ? "Signing up..." : "Sign up"
+          }
         </Button>
       </CardFooter>
     </Card>

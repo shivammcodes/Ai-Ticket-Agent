@@ -24,7 +24,7 @@ exports.userSignup=async(req,res)=>{
             email
         }
      })
-     res.status(201).json({data:{_id:userDoc._id,emadil: userDoc.email}});
+     res.status(201).json({data:{_id:userDoc._id,email: userDoc.email},msg:["User Created Successfully"]});
     }
 
 

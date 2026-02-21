@@ -8,12 +8,14 @@ const HomePage = () => {
         <div className="left col-span-2">
             <h1 className='text-7xl font-medium leading-20 tracking-wide text-muted'>Create your Ticket</h1>
             <h2 className='mt-3 text-lg text-[#949494]'>What technical help you need ?</h2>
-            <div className="Ticket-info bg-[#0d0d0d] mt-5 rounded-sm h-fit">
+            <div className="con border-1 border-muted/50 mt-5 px-5 py-5 rounded-xl">
+              <div className="Ticket-info bg-[#0d0d0d] mt-5 rounded-sm h-fit">
               <input placeholder="Enter the tite" className="rounded-sm  placeholder:text-[#949494] placeholder:bg-[#0d0d0d] w-full outline-none border-2 p-3 border-[#949494]/50 text-muted"></input>
               <textarea placeholder="Enter the description" className="rounded-sm  placeholder:text-[#949494] placeholder:bg-[#0d0d0d] w-full mt-3 outline-none border-2 p-3 border-[#949494]/50 text-muted"></textarea>
             </div>
             <div className="btn flex justify-end w-full mt-5">
                 <Button size={'sm'} className='bg-muted text-foreground rounded-2xl hover:bg-[#949494] cursor-pointer'>Create Ticket</Button>
+            </div>
             </div>
         </div>
         <div className="right col-span-3 h-[75vh]">
