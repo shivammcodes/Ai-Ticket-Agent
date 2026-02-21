@@ -15,7 +15,7 @@ export const UserContext = createContext<UserContextType | null>(null);
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [userIsAuthenticated, setUserIsAuthenticated] = useState(false);
   const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   async function checkUser(){
     try{
         setLoading(true);
