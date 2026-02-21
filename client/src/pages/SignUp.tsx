@@ -49,8 +49,8 @@ const SignUp = () => {
     <div className="car flex h-screen w-full justify-center items-center">
         <Card className="w-full max-w-sm bg-[#171717]/80 border-border/40">
       <CardHeader>
-        <CardTitle className="text-muted">Sign up</CardTitle>
-        <CardDescription className="text-[#949494]">
+        <CardTitle className="text-primary">Sign up</CardTitle>
+        <CardDescription className="text-muted-foreground">
           Sign up using email and password
         </CardDescription>
         <CardAction>
@@ -60,28 +60,28 @@ const SignUp = () => {
         <form>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
-              <Label htmlFor="email" className="text-muted">Email</Label>
+              <Label htmlFor="email" className="text-primary">Email</Label>
               <Input
                 id="email"
                 type="email"
                 placeholder="m@example.com"
                 required
-                className="placeholder:text-[#949494] text-muted border-border/40"
+                className="placeholder:text-muted-foreground border-border/40 text-primary"
                 onChange={(e)=>{setEmail(e.target.value)}}
                 value={email}
               />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="password" className="text-muted">Password</Label>
+                <Label htmlFor="password" className="text-primary">Password</Label>
               </div>
-              <Input id="password" type="password" required value={password} onChange={(e)=>{setPassword(e.target.value)}} className="text-muted border-border/40 placeholder:text-[#949494]" placeholder="****" />
+              <Input id="password" type="password" required value={password} onChange={(e)=>{setPassword(e.target.value)}} className=" border-border/40 text-primary placeholder:text-muted-foreground" placeholder="****" />
             </div>
           </div>
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button type="submit" onClick={createUser} disabled={loading} className="w-full bg-muted text-foreground hover:bg-[#949494]">
+        <Button type="submit" onClick={createUser} disabled={loading} className="w-full bg-primary cursor-pointer text-background hover:bg-muted-foreground">
           {
             loading ? "Signing up..." : "Sign up"
           }
