@@ -69,7 +69,7 @@ exports.userLogin=async(req,res)=>{
         if(err){
             return res.status(400).json({error:["Cant create a token for user"]});
         }
-        res.cookie('token',token).json({msg: ["User login successfull"]});
+        res.cookie('token',token).json({msg: ["User login successfull"],user:{email:user.email,_id:user._id}});
     });
     }
     catch(error){

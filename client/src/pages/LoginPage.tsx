@@ -10,15 +10,21 @@ import {
 } from "@/components/ui/card"
 import { Input } from "../components/ui/input"
 import { Label } from "../components/ui/label";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { UserContext } from "@/components/UserContext";
 
 const LoginPage = () => {
   const[email,setEmail]=useState('');
   const[password,setPassword]=useState('');
   const navigate=useNavigate();
   const[loading,setLoading]=useState(false);
+  const context=useContext(UserContext);
+  if(!context){
+    return <h1>UserContext not found</h1>;
+  }
+  const{setUserIsAuthenticated,setUser}=context;
   async function setLogin(e: any){
     e.preventDefault();
     setLoading(true);
@@ -37,6 +43,8 @@ const LoginPage = () => {
       else{
         setLoading(false);
         toast.success(data.msg);
+        setUserIsAuthenticated(true);
+        setUser({email:data.user.email,_id:data.user._id});
         navigate('/')
       }
     }
